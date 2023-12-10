@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "colaborative-wordle"
+version = "0.1.0"
+description = "Online Collaborative Wordle"
+authors = ["Douglas Rocha <douglasedurocha@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0"
+djangorestframework = "^3.14.0"
+django-filter = "^23.5"
+psycopg2 = "^2.9.9"
+python-dotenv = "^1.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+ruff = "*"
+pre-commit = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+
+[tool.poetry.extras]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

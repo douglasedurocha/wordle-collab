@@ -1,0 +1,21 @@
+line-length = 88
+select = [
+    "A",  # prevent using keywords that clobber python builtins
+    "B",  # bugbear: security warnings
+    "E",  # pycodestyle
+    "F",  # pyflakes
+    "ISC",  # implicit string concatenation
+    "UP",  # alert you when better syntax is available in your python version
+    "RUF",  # the ruff developer's own rules
+]
+
+[mccabe]
+max-complexity = 8
+
+[per-file-ignores]
+"*/migrations/*" = [
+    "E501",  # Line too long
+]
+"settings.py" = [
+    "E501",  # Line too long
+]

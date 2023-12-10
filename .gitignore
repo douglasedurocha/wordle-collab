@@ -1,0 +1,53 @@
+# Backup files
+*.bak
+
+# Distribution / packaging
+dist/
+
+# Django
+*.log
+*.pot
+*.pyc
+/staticfiles
+__pycache__
+db.sqlite3
+media
+
+# Environments
+.venv
+/.env
+/local
+ENV/
+env.bak/
+env/
+venv
+venv.bak/
+venv/
+
+# IDEs
+.idea
+.vscode
+
+# mypy
+.mypy_cache
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache
+
+# ruff
+.ruff_cache
+
+# Unit test / coverage reports
+*.cover
+.cache
+.coverage
+.coverage.*
+.hypothesis/
+.pytest_cache/
+.tox/
+coverage.xml
+htmlcov/
+nosetests.xml
