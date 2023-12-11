@@ -15,6 +15,7 @@ max-complexity = 8
 [per-file-ignores]
 "*/migrations/*" = [
     "E501",  # Line too long
+    "RUF012", # Mutable class default
 ]
 "settings.py" = [
     "E501",  # Line too long
