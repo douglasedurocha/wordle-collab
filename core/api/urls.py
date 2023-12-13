@@ -6,4 +6,7 @@ router = DefaultRouter()
 
 router.registry.extend(attempt_router.registry)
 
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [
+    path("", include(router.urls)),
+    path("accounts/", include("accounts.api.urls")),
+]
