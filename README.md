@@ -28,10 +28,10 @@ Install the projects requirements, apply the migrations and set up the git hook 
 
 ### Auth Endpoints
 
-* ``/api/accounts/register/``
-* `/api/accounts/login/`
-* `/api/accounts/logout/`
-* `/api/accounts/user/`
+* ``/api/accounts/register``
+* `/api/accounts/login`
+* `/api/accounts/logout`
+* `/api/accounts/user`
 
 ### Wordle Endpoints
 
