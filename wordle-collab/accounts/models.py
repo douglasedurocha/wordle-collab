@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class Player(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField(unique=True)
     is_superuser = models.BooleanField(default=False)
