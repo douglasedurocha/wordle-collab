@@ -16,19 +16,19 @@ fmt:
 
 .PHONY: runserver
 runserver:
-	poetry run python manage.py runserver
+	poetry run python wordle-collab/manage.py runserver
 
 .PHONY: migrate
 migrate:
-	poetry run python manage.py migrate
+	poetry run python wordle-collab/manage.py migrate
 
 .PHONY: migrations
 migrations:
-	poetry run python manage.py makemigrations
+	poetry run python wordle-collab/manage.py makemigrations
 
 .PHONY: superuser
 superuser:
-	poetry run python manage.py createsuperuser
+	poetry run python wordle-collab/manage.py createsuperuser
 
 .PHONY: test
 test:
