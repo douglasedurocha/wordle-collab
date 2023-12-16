@@ -99,15 +99,16 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.getenv("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.getenv("SQL_USER", "user"),
-        "PASSWORD": os.getenv("SQL_PASSWORD", "password"),
-        "HOST": os.getenv("SQL_HOST", "localhost"),
-        "PORT": os.getenv("SQL_PORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "wordle_collab",
+        "USER": "wordle_collab",
+        "PASSWORD": "wordle_collab",
+        "HOST": "localhost",
+        "PORT": "5432",
+        "ATOMIC_REQUESTS": True,
+        "CONN_MAX_AGE": 60 * 10,  # 10 minutes
     }
 }
-
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),

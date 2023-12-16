@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14.2-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: wordle_collab
+      POSTGRES_USER: wordle_collab
+      POSTGRES_PASSWORD: wordle_collab
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+    driver: local
