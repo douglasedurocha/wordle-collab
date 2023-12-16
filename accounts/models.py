@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from typing import List
 
@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField(unique=True)
     is_superuser = models.BooleanField(default=False)
@@ -34,6 +34,10 @@ class CustomUser(AbstractBaseUser):
     REQUIRED_FIELDS: List[str] = []
 
     objects = CustomUserManager()
+
+    @property
+    def is_staff(self):
+        return self.is_superuser
 
     def __str__(self):
         return self.email
