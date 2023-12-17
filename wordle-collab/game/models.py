@@ -8,7 +8,7 @@ class Game(models.Model):
     word = models.CharField(max_length=5)
     players = models.ManyToManyField(User)
     max_players = models.IntegerField(default=2)
-    max_atempts = models.IntegerField(default=5)
+    max_attempts = models.IntegerField(default=5)
 
     def add_player(self, player):
         if self.players.count() >= self.max_players:
