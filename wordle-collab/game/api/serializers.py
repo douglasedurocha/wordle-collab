@@ -1,8 +1,8 @@
-from game.models import Attempt
+from game.models import Game
 from rest_framework.serializers import ModelSerializer
 
 
-class AtemptSerializer(ModelSerializer):
+class GameSerializer(ModelSerializer):
     class Meta:
-        model = Attempt
-        fields = ("id", "word")
+        model = Game
+        fields = ("id", "players", "status")

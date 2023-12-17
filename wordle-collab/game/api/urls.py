@@ -1,5 +1,6 @@
-from rest_framework.routers import DefaultRouter
-from .views import AttemptViewSet
+from django.urls import path
+from . import views
 
-attempt_router = DefaultRouter()
-attempt_router.register(r"attempts", AttemptViewSet)
+urlpatterns = [
+    path("create", views.GameCreateView.as_view(), name="create-game"),
+]
