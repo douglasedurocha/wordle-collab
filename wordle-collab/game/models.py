@@ -5,10 +5,17 @@ User = get_user_model()
 
 
 class Game(models.Model):
+    STATUS_CHOICES = [
+        ("W", "Waiting"),
+        ("A", "Active"),
+        ("C", "Completed"),
+    ]
+
     word = models.CharField(max_length=5)
     players = models.ManyToManyField(User)
     max_players = models.IntegerField(default=2)
     max_attempts = models.IntegerField(default=5)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="W")
 
     def add_player(self, player):
         if self.players.count() >= self.max_players:
