@@ -16,6 +16,16 @@ class GameCreateView(APIView):
         return Response(GameSerializer(game).data, status=201)
 
 
+class GetGameView(APIView):
+    permission_classes = [
+        AllowAny,
+    ]
+
+    def get(self, request, game_id):
+        game = Game.objects.get(id=game_id)
+        return Response(GameSerializer(game).data, status=200)
+
+
 class OpenGameListView(APIView):
     permission_classes = [
         AllowAny,
