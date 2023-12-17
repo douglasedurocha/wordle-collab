@@ -24,6 +24,23 @@ class Game(models.Model):
         self.save()
         return
 
+    def remove_player(self, player):
+        self.players.remove(player)
+        self.save()
+        return
+
+    @property
+    def players_count(self):
+        return self.players.count()
+
+    @property
+    def author_email(self):
+        return self.players.first().email
+
+    @property
+    def attempts_count(self):
+        return self.attempt_set.count()
+
 
 # Create your models here.
 class Attempt(models.Model):
