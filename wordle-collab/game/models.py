@@ -8,7 +8,8 @@ class Game(models.Model):
     STATUS_CHOICES = [
         ("W", "Waiting"),
         ("A", "Active"),
-        ("C", "Completed"),
+        ("D", "Defeat"),
+        ("V", "Victory"),
     ]
 
     word = models.CharField(max_length=5)
@@ -40,6 +41,10 @@ class Game(models.Model):
     @property
     def attempts_count(self):
         return self.attempt_set.count()
+
+    @property
+    def is_over(self):
+        return self.status == "D" or self.status == "V"
 
 
 # Create your models here.
