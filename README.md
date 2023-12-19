@@ -38,6 +38,7 @@ Install the projects requirements, apply the migrations and set up the git hook 
 * `/api/games/create`
 * `/api/games/list-open`
 * `/api/games/<int:game_id>`
+* `/api/games/<int:game_id>/attempts`
 
 <!-- ### Usage -->
 
