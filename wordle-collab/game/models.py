@@ -16,6 +16,7 @@ class Game(models.Model):
     players = models.ManyToManyField(User)
     max_players = models.IntegerField(default=2)
     max_attempts = models.IntegerField(default=5)
+    turn = models.IntegerField(default=0)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="W")
 
     def add_player(self, player):
@@ -30,17 +31,27 @@ class Game(models.Model):
         self.save()
         return
 
+    def next_turn(self):
+        self.turn += 1
+        self.turn = self.turn % self.players_count
+        self.save()
+        return
+
+    @property
+    def current_player(self):
+        return self.players.all()[self.turn]
+
     @property
     def players_count(self):
         return self.players.count()
 
     @property
-    def author_email(self):
-        return self.players.first().email
-
-    @property
     def attempts_count(self):
         return self.attempt_set.count()
+
+    @property
+    def author_email(self):
+        return self.players.first().email
 
     @property
     def is_over(self):
