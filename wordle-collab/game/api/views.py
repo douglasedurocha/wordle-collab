@@ -1,8 +1,8 @@
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import GameSerializer
-from game.models import Game
+from .serializers import GameSerializer, AttemptSerializer
+from game.models import Game, Attempt
 
 
 class GameCreateView(APIView):
@@ -24,6 +24,16 @@ class GetGameView(APIView):
     def get(self, request, game_id):
         game = Game.objects.get(id=game_id)
         return Response(GameSerializer(game).data, status=200)
+
+
+class GetAttemptView(APIView):
+    permission_classes = [
+        AllowAny,
+    ]
+
+    def get(self, request, game_id):
+        attempts = Attempt.objects.filter(game=game_id)
+        return Response(AttemptSerializer(attempts, many=True).data, status=200)
 
 
 class OpenGameListView(APIView):
