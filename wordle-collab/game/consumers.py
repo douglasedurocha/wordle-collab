@@ -26,8 +26,8 @@ class GameConsumer(WebsocketConsumer):
     # Receive attempt from WebSocket
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        attempt = text_data_json["attempt"]
-        player_email = text_data_json["player"]
+        attempt_word = text_data_json["word"]
+        player = text_data_json["player"]
 
         # player = Player.objects.get(email=player_email)
         # game = Game.objects.get(id=self.game_id)
@@ -38,13 +38,13 @@ class GameConsumer(WebsocketConsumer):
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.game_group_name,
-            {"type": "game_attempt", "attempt": attempt, "player": player_email},
+            {"type": "game_attempt", "word": attempt_word, "player": player},
         )
 
     # Receive attempt from game room
     def game_attempt(self, event):
-        attempt = event["attempt"]
+        attempt_word = event["word"]
         player = event["player"]
 
         # Send message to WebSocket
-        self.send(text_data=json.dumps({"attempt": attempt, "player": player}))
+        self.send(text_data=json.dumps({"word": attempt_word, "player": player}))
