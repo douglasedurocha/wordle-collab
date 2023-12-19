@@ -51,6 +51,7 @@ class Game(models.Model):
 class Attempt(models.Model):
     player = models.ForeignKey(User, on_delete=models.CASCADE)
     word = models.CharField(max_length=5)
+    hint = models.CharField(max_length=5)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
     def __str__(self) -> str:

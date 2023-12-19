@@ -35,5 +35,6 @@ class AttemptSerializer(ModelSerializer):
             "id",
             "player",
             "word",
+            "hint",
             "game",
         )
