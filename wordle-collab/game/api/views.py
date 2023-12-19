@@ -25,8 +25,11 @@ class GetGameView(APIView):
     ]
 
     def get(self, request, game_id):
-        game = Game.objects.get(id=game_id)
-        return Response(GameSerializer(game).data, status=200)
+        try:
+            game = Game.objects.get(id=game_id)
+            return Response(GameSerializer(game).data, status=200)
+        except Game.DoesNotExist:
+            return Response({"error": f"Game with ID {game_id} not found"}, status=404)
 
 
 class GetAttemptView(APIView):
@@ -35,8 +38,12 @@ class GetAttemptView(APIView):
     ]
 
     def get(self, request, game_id):
-        attempts = Attempt.objects.filter(game=game_id)
-        return Response(AttemptSerializer(attempts, many=True).data, status=200)
+        try:
+            game = Game.objects.get(id=game_id)
+            attempts = Attempt.objects.filter(game=game)
+            return Response(AttemptSerializer(attempts, many=True).data, status=200)
+        except Game.DoesNotExist:
+            return Response({"error": f"Game with ID {game_id} not found"}, status=404)
 
 
 class OpenGameListView(APIView):
