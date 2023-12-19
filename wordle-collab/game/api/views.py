@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import GameSerializer, AttemptSerializer
 from game.models import Game, Attempt
+from game.wordle import generate_random_word
 
 
 class GameCreateView(APIView):
@@ -13,6 +14,8 @@ class GameCreateView(APIView):
     def post(self, request):
         game = Game.objects.create(word="teste")
         game.add_player(request.user)
+        game.word = generate_random_word()
+        game.save()
         return Response(GameSerializer(game).data, status=201)
 
 
