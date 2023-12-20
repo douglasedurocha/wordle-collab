@@ -4,7 +4,9 @@
 <a href="https://github.com/douglasedurocha"><img title="Author" src="https://img.shields.io/badge/Author-douglasedurocha-blue.svg?style=for-the-badge&logo=github"></a>
 </p>
 
-<div align="center">API for Online Collaborative Wordle<br>using <em>Django Rest Framework</em> and <em>WebSockets</em></div>
+<p align="center">API for Online Collaborative Wordle<br>using <em>Django Rest Framework</em> and <em>WebSockets</em></p>
+
+Looking for front-end? https://github.com/douglasedurocha/wordle-collab-Frontend
 
 ## Clone this project
 
@@ -24,6 +26,21 @@ Install the projects requirements, apply the migrations and set up the git hook 
 > make update
 ```
 
+## Usage (development)
+
+Start postgres and redis service
+
+```
+> make up-dependencies-only
+```
+
+and start server
+
+```
+> make runserver
+```
+
+
 ## API
 
 ### Auth Endpoints
@@ -40,9 +57,17 @@ Install the projects requirements, apply the migrations and set up the git hook 
 * `/api/games/<int:game_id>`
 * `/api/games/<int:game_id>/attempts`
 
-<!-- ### Usage -->
-
 <!-- ## Features
 
 || Features |
 | :-: | - | -->
+
+## Copyright Notice
+
+This work incorporates words_dictionary.json in <em>words_list.json</em> file, obtained from https://github.com/dwyl/english-words/blob/master/words_dictionary.json.
+
+Copyright (c) 2017-2023, Do What You Love
+https://github.com/dwyl
+
+
+
