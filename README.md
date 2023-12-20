@@ -18,23 +18,23 @@ Looking for front-end? https://github.com/douglasedurocha/wordle-collab-Frontend
 ## Dependencies:
 
 + [Poetry](https://python-poetry.org) : a tool for dependency management and packaging in Python.
++ [Docker](https://www.docker.com/) : a containerization platform for building, packaging, and distributing applications.
++ [Docker Compose](https://docs.docker.com/compose/) : a tool for defining and running multi-container Docker applications.
 
-## Getting started:
+## Usage (development)
+
+Start Postgres and Redis service
+
+```
+> make up-dependencies-only
+```
 
 Install the projects requirements, apply the migrations and set up the git hook scripts
 ```bash
 > make update
 ```
 
-## Usage (development)
-
-Start postgres and redis service
-
-```
-> make up-dependencies-only
-```
-
-and start server
+Start server
 
 ```
 > make runserver
