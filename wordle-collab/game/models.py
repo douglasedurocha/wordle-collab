@@ -20,14 +20,18 @@ class Game(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="W")
 
     def add_player(self, player):
-        if self.players.count() >= self.max_players:
+        if self.players_count >= self.max_players:
             return
         self.players.add(player)
+        if self.players_count == self.max_players:
+            self.status = "A"
         self.save()
         return
 
     def remove_player(self, player):
         self.players.remove(player)
+        if self.players_count < self.max_players:
+            self.status = "W"
         self.save()
         return
 
