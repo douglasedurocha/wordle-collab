@@ -9,10 +9,11 @@ from .wordle import check_word_exists, give_hint
 class GameConsumer(WebsocketConsumer):
     def connect(self):
         self.game_id = self.scope["url_route"]["kwargs"]["game_id"]
-        self.game_group_name = "game_%s" % self.game_id
+        self.game_group_name = f"game_{self.game_id}"
         self.player_email = self.scope["user"]
 
         if not self._check_room_availability():
+            self._send_notification("error", "Room is full")
             self.close()
             return
 
@@ -48,10 +49,6 @@ class GameConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_discard)(
             self.game_group_name, self.channel_name
         )
-        game = self._get_game()
-        player = self._get_player()
-        game.remove_player(player)
-        game.save()
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
@@ -62,27 +59,36 @@ class GameConsumer(WebsocketConsumer):
         player = self._get_player()
 
         if game.is_over:
+            self._send_notification(
+                "info", f"Game is over. You {'won!' if game.status == 'V' else 'lost'}!"
+            )
+            self._send_game_status(game.status, game.current_player.email)
             return
 
         if not check_word_exists(attempt_word):
+            self._send_notification("error", "Word is not in the list")
             return
 
         attempt = Attempt.objects.create(player=player, word=attempt_word, game=game)
 
         hint = give_hint(attempt_word, game.word)
         attempt.hint = hint
+        attempt.save()
 
         self._send_attempt(attempt_word, hint, player_email)
 
-        if attempt == game.word:
+        if attempt_word == game.word:
             game.status = "V"
             game.save()
-            return
-
-        elif game.attempts_count >= game.max_attempts:
+            self._send_notification("success", "You won!")
+        elif game.attempts_count > game.max_attempts:
             game.status = "D"
             game.save()
-            return
+            self._send_notification("error", f"You lost! The word was {game.word}")
+
+        game.save()
+
+        self._send_game_status(game.status, game.current_player.email)
 
     def _send_attempt(self, word, hint, player_email):
         async_to_sync(self.channel_layer.group_send)(
@@ -93,6 +99,18 @@ class GameConsumer(WebsocketConsumer):
                 "hint": hint,
                 "player": {"email": player_email},
             },
+        )
+
+    def _send_notification(self, alert, message):
+        async_to_sync(self.channel_layer.group_send)(
+            self.game_group_name,
+            {"type": "notify", "alert": alert, "message": message},
+        )
+
+    def _send_game_status(self, status, turn):
+        async_to_sync(self.channel_layer.group_send)(
+            self.game_group_name,
+            {"type": "status", "status": status, "turn": turn},
         )
 
     def attempt(self, event):
@@ -110,4 +128,24 @@ class GameConsumer(WebsocketConsumer):
                     "player": {"email": player_email},
                 }
             )
+        )
+
+    def notify(self, event):
+        msg_type = "notify"
+        alert = event["alert"]
+        message = event["message"]
+
+        self.send(
+            text_data=json.dumps(
+                {"msg_type": msg_type, "alert": alert, "message": message}
+            )
+        )
+
+    def status(self, event):
+        msg_type = "status"
+        status = event["status"]
+        turn = event["turn"]
+
+        self.send(
+            text_data=json.dumps({"msg_type": msg_type, "status": status, "turn": turn})
         )
