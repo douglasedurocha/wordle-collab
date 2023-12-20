@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import GameSerializer, AttemptSerializer
 from game.models import Game, Attempt
-from game.wordle import generate_random_word
+from wordle.wordle import generate_random_word
 
 
 class GameCreateView(APIView):

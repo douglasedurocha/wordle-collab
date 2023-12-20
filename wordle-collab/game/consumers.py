@@ -3,7 +3,7 @@ from asgiref.sync import async_to_sync
 from accounts.models import Player
 from .models import Game, Attempt
 from channels.generic.websocket import WebsocketConsumer
-from .wordle import check_word_exists, give_hint
+from wordle.wordle import check_word_exists, give_hint
 
 
 class GameConsumer(WebsocketConsumer):
