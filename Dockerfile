@@ -1,4 +1,4 @@
-FROM python:3.10.5-buster
+FROM python:3.11.7-slim-bullseye
 
 WORKDIR /opt/app
 
@@ -20,7 +20,7 @@ RUN poetry install --no-root
 
 # Copy project
 COPY ["README.md", "Makefile", ".env",  "./"]
-COPY wordle_collab wordle_collab 
+COPY wordle-collab wordle-collab 
 
 # Expose port 8000
 EXPOSE 8000

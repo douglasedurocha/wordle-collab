@@ -27,10 +27,6 @@ services:
     depends_on:
       - db
       - redis
-    environment:
-      WORDLE_COLLAB_DB_SETTING_DATABASE: '{"default": {"HOST": "db"}'
-      WORDLE_COLLAB_REDIS_HOST: redis
-      WORDLE_COLLAB_SETTINGS_PATH: /app/wordle_collab/settings/settings.prod.py
 
 
 volumes:
