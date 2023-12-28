@@ -14,7 +14,7 @@ from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 import game.routing
 from channels.auth import AuthMiddlewareStack
-from channels.security.websocket import AllowedHostsOriginValidator  # noqa F401
+from channels.security.websocket import AllowedHostsOriginValidator
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
@@ -23,14 +23,8 @@ asgi_application = get_asgi_application()
 application = ProtocolTypeRouter(
     {
         "http": asgi_application,
-        # Just for testing
-        # 'websocket': AllowedHostsOriginValidator(
-        #     AuthMiddlewareStack(
-        #         URLRouter(
-        #             game.routing.websocket_urlpatterns
-        #         )
-        #     ),
-        # )
-        "websocket": AuthMiddlewareStack(URLRouter(game.routing.websocket_urlpatterns)),
+        "websocket": AllowedHostsOriginValidator(
+            AuthMiddlewareStack(URLRouter(game.routing.websocket_urlpatterns)),
+        ),
     }
 )
