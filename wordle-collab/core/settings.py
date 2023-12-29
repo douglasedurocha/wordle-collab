@@ -68,7 +68,7 @@ DATABASES = {
         "NAME": "wordle_collab",
         "USER": "wordle_collab",
         "PASSWORD": "wordle_collab",
-        "HOST": "localhost",
+        "HOST": os.getenv("POSTGRES_HOST", default="localhost"),
         "PORT": "5432",
         "ATOMIC_REQUESTS": True,
         "CONN_MAX_AGE": 60 * 10,  # 10 minutes
@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {"hosts": [("localhost", 6379)]},
+        "CONFIG": {"hosts": [os.getenv("REDIS_URL", default="redis://localhost:6379")]},
     },
 }
 

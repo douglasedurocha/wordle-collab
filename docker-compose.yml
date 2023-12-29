@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: wordle_collab
       POSTGRES_PASSWORD: wordle_collab
     ports:
-      - 5432:5432
+      - '5432:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
@@ -17,16 +17,18 @@ services:
     image: redis:6.2-alpine
     restart: unless-stopped
     ports:
-      - 6379:6379
+      - '6379:6379'
 
   app:
     build: .
-    restart: unless-stopped
     ports:
-      - 8000:8000
+      - '8000:8000'
     depends_on:
       - db
       - redis
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_URL=redis://redis:6379/0
 
 
 volumes:
