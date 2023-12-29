@@ -25,8 +25,8 @@ COPY wordle-collab wordle-collab
 # Expose port 8000
 EXPOSE 8000
 
-COPY scripts/entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh
+COPY scripts/entrypoint.sh entrypoint.sh
+RUN chmod a+x entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["bash", "entrypoint.sh"]
 
