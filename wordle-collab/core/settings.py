@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
     "wordle",
@@ -113,3 +114,7 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SAMESITE = "None"
+
+# Static Files
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
