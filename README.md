@@ -23,9 +23,16 @@ Looking for front-end? https://github.com/douglasedurocha/wordle-collab-Frontend
 
 ## Usage (development)
 
+Copy .env file
+
+```bash
+> cp .env.example .env
+```
+
+
 Start Postgres and Redis service
 
-```
+```bash
 > make up-dependencies-only
 ```
 
@@ -36,7 +43,7 @@ Install the projects requirements, apply the migrations and set up the git hook 
 
 Start server
 
-```
+```bash
 > make runserver
 ```
 
