@@ -52,22 +52,28 @@ Start server
 
 ### Auth Endpoints
 
-* `/api/accounts/register`
-* `/api/accounts/login`
-* `/api/accounts/logout`
-* `/api/accounts/user`
+<code style="color: green">POST</code>&nbsp; `/api/v1/accounts/register`
+<br>
+<code style="color: green">POST</code>&nbsp; `/api/v1/accounts/login`
+<br>
+<code style="color: green">POST</code>&nbsp; `/api/v1/accounts/logout`
+<br>
+<code style="color: aqua">GET</code> &nbsp; `/api/v1/accounts/user`
 
 ### Wordle Endpoints
 
-* `/api/games/create`
-* `/api/games/list-open`
-* `/api/games/<int:game_id>`
-* `/api/games/<int:game_id>/attempts`
 
-<!-- ## Features
+<code style="color: aqua">GET</code> &nbsp; `/api/v1/games`
+<br>
+<code style="color: green">POST</code>&nbsp; `/api/v1/games`
+<br>
+<code style="color: aqua">GET</code> &nbsp; `/api/v1/games/<int:game_id>`
+<br>
+<code style="color: aqua">GET</code> &nbsp; `/api/v1/games/<int:game_id>/attempts`
 
-|| Features |
-| :-: | - | -->
+
+Full API docs https://app.swaggerhub.com/templates-docs/DOUGLASEDUROCHA/wordlecollab/1.0.0
+
 
 ## Copyright Notice
 

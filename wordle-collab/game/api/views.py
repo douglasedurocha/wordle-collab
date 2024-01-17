@@ -6,17 +6,21 @@ from game.models import Game, Attempt
 from wordle.wordle import generate_random_word
 
 
-class GameCreateView(APIView):
+class GameView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
 
     def post(self, request):
-        game = Game.objects.create(word="teste")
+        word = generate_random_word()
+        game = Game.objects.create(word=word)
         game.add_player(request.user)
-        game.word = generate_random_word()
         game.save()
         return Response(GameSerializer(game).data, status=201)
+
+    def get(self, request):
+        games = Game.objects.filter(status="W")
+        return Response(GameSerializer(games, many=True).data, status=200)
 
 
 class GetGameView(APIView):
@@ -44,13 +48,3 @@ class GetAttemptView(APIView):
             return Response(AttemptSerializer(attempts, many=True).data, status=200)
         except Game.DoesNotExist:
             return Response({"error": f"Game with ID {game_id} not found"}, status=404)
-
-
-class OpenGameListView(APIView):
-    permission_classes = [
-        AllowAny,
-    ]
-
-    def get(self, request):
-        games = Game.objects.filter(status="W")
-        return Response(GameSerializer(games, many=True).data, status=200)
