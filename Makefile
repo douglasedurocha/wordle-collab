@@ -37,7 +37,7 @@ test:
 .PHONY: up-dependencies-only
 up-dependencies-only:
 	test -f .env || touch .env
-	docker-compose -f docker-compose.dev.yml up --force-recreate db redis
+	docker-compose up --force-recreate db redis
 
 .PHONY: update
 update: install migrate install-pre-commit;
